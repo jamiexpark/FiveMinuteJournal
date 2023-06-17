@@ -1,0 +1,3 @@
+# 5 Minute Journal 
+
+Hello! My name is Jamie, and I believe that journalling is really important for everyone to do, no matter what stage in life their in, whenever and wherever they are. The 5 minute journal in an easy way to introduce yourself to journalling, while also showing gratitude for your life and gaining consistentency and building good habits. I wanted a way for people on the go, and also people (like me) who are easily forgetful to participate in the 5minute journal through a website that will later be built as a chrome extension that will pop up during the time period you set that you want to start and end your day. 
