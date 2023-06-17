@@ -39,7 +39,7 @@
   </style>
 </head>
 <body>
-  <h2>Calendar</h2>
+  <h2 id="month-year"></h2>
   <div id="calendar-container">
     <button id="prev-button">Previous</button>
     <button id="next-button">Next</button>
@@ -121,6 +121,11 @@
           openPopup(day);
         });
       });
+
+      // Update month and year
+      var monthYearText = document.getElementById('month-year');
+      var monthText = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
+      monthYearText.textContent = monthText + ' ' + year;
     }
 
     function openPopup(day) {
