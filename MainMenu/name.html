@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>What is your name?</title>
+</head>
+<body>
+  <h1>What is your name?</h1>
+  <form id="nameForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <button type="button" onclick="saveName()">Next</button>
+  </form>
+
+  <script>
+    function saveName() {
+      const nameInput = document.getElementById("name");
+      const name = nameInput.value;
+
+      // Send the name to the server and store it in the database
+      // Example: Use AJAX or fetch API to make a POST request to the server
+
+      // Redirect to the next page
+      window.location.href = "timeframe.html";
+    }
+  </script>
+</body>
+</html>
