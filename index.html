@@ -50,7 +50,7 @@
       color: green;
       font-weight: bold;
     }
-    
+/*     
     #idle-popup {
       position: fixed;
       top: 0;
@@ -65,7 +65,7 @@
       color: white;
       font-size: 24px;
       z-index: 9999;
-    }
+    } */
 
     #homepage {
       display: none;
@@ -161,10 +161,10 @@
   </div>
 
 
-
+<!-- 
   <div id="idle-popup" style="display: none;">
     <h2>Welcome back, ready to finish your 5 minute journal?</h2>
-  </div>
+  </div> -->
 
   <div id="homepage">
     <div class="section">
@@ -306,10 +306,10 @@
     }
 
     // Show the idle popup
-    function showIdlePopup() {
-      const idlePopup = document.getElementById("idle-popup");
-      idlePopup.style.display = "flex";
-    }
+    // function showIdlePopup() {
+    //   const idlePopup = document.getElementById("idle-popup");
+    //   idlePopup.style.display = "flex";
+    // }
 
     // Show the homepage
     function showHomePage() {
@@ -405,10 +405,10 @@
     const endTime = localStorage.getItem("endTime");
     const currentHour = new Date().getHours();
 
-    if (!(startTime && endTime && currentHour >= parseInt(startTime.split(":")[0]) && currentHour <= parseInt(endTime.split(":")[0]))) {
-      // Open the popup window
-      window.open("popup.html", "_blank", "width=400,height=300");
-    }
+    // if (!(startTime && endTime && currentHour >= parseInt(startTime.split(":")[0]) && currentHour <= parseInt(endTime.split(":")[0]))) {
+    //   // Open the popup window
+    //   window.open("popup.html", "_blank", "width=400,height=300");
+    // }
   </script>
 </body>
 </html>
