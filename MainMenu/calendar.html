@@ -1,13 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+  <title>Calendar</title>
+  <style>
+    .calendar {
+      font-family: Arial, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .calendar th,
+    .calendar td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+    .calendar th {
+      background-color: #f2f2f2;
+    }
+    .calendar td:hover {
+      background-color: #e6e6e6;
+      cursor: pointer;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 20px;
+      z-index: 1;
+      display: none;
+    }
+    .close-button {
+      float: right;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    
+  <h2>Calendar</h2>
+  <div id="calendar-container">
+    <button id="prev-button">Previous</button>
+    <button id="next-button">Next</button>
+    <table class="calendar">
+      <thead>
+        <tr>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+        </tr>
+      </thead>
+      <tbody id="calendar-body">
+      </tbody>
+    </table>
+  </div>
+
+  <div id="popup" class="popup">
+    <span class="close-button">&times;</span>
+    <div id="popup-content"></div>
+  </div>
+
+  <script>
+    var currentMonth = new Date().getMonth();
+    var currentYear = new Date().getFullYear();
+
+    function generateCalendar() {
+      var date = new Date(currentYear, currentMonth);
+
+      var year = date.getFullYear();
+      var month = date.getMonth();
+      var today = date.getDate();
+
+      var firstDay = new Date(year, month, 1);
+      var lastDay = new Date(year, month + 1, 0);
+
+      var calendarBody = document.getElementById('calendar-body');
+      calendarBody.innerHTML = '';
+
+      var row = document.createElement('tr');
+
+      for (var i = 0; i < firstDay.getDay(); i++) {
+        var cell = document.createElement('td');
+        cell.innerHTML = '';
+        row.appendChild(cell);
+      }
+
+      for (var day = 1; day <= lastDay.getDate(); day++) {
+        var cell = document.createElement('td');
+        cell.innerHTML = day;
+        cell.setAttribute('data-day', day);
+        if (day === today) {
+          cell.style.fontWeight = 'bold';
+        }
+        row.appendChild(cell);
+
+        if (row.children.length === 7) {
+          calendarBody.appendChild(row);
+          row = document.createElement('tr');
+        }
+      }
+
+      while (row.children.length < 7) {
+        var cell = document.createElement('td');
+        cell.innerHTML = '';
+        row.appendChild(cell);
+      }
+
+      calendarBody.appendChild(row);
+
+      // Add event listener to each day cell
+      var dayCells = document.querySelectorAll('#calendar-body td');
+      dayCells.forEach(function (cell) {
+        cell.addEventListener('click', function () {
+          var day = this.getAttribute('data-day');
+          openPopup(day);
+        });
+      });
+    }
+
+    function openPopup(day) {
+      var popup = document.getElementById('popup');
+      var popupContent = document.getElementById('popup-content');
+      var closeBtn = document.querySelector('.close-button');
+
+      popupContent.innerHTML = 'Hello'; // Placeholder content
+
+      closeBtn.addEventListener('click', closePopup);
+
+      popup.style.display = 'block';
+    }
+
+    function closePopup() {
+      var popup = document.getElementById('popup');
+      var closeBtn = document.querySelector('.close-button');
+
+      closeBtn.removeEventListener('click', closePopup);
+
+      popup.style.display = 'none';
+    }
+
+    function goToPrevMonth() {
+      if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear--;
+      } else {
+        currentMonth--;
+      }
+      generateCalendar();
+    }
+
+    function goToNextMonth() {
+      if (currentMonth === 11) {
+        currentMonth = 0;
+        currentYear++;
+      } else {
+        currentMonth++;
+      }
+      generateCalendar();
+    }
+
+    var prevButton = document.getElementById('prev-button');
+    var nextButton = document.getElementById('next-button');
+
+    prevButton.addEventListener('click', goToPrevMonth);
+    nextButton.addEventListener('click', goToNextMonth);
+
+    generateCalendar();
+  </script>
 </body>
 </html>
