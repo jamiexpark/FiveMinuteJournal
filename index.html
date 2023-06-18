@@ -10,22 +10,19 @@
       100% { background-position: -200px 0; }
     }
     
-    body {
-     text-align: center;
+     body {
+      position: relative; /* Added */
+      text-align: center;
       font-family: Arial, sans-serif;
-      animation: slowerAnimation 10s linear infinite;
-      margin: 0;
-      padding: 0;
-      height: 100%;
     }
     
-    #video-background {
+    #background-video {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1; /* Ensure video is behind other content */
+      z-index: -1;
     }
 
     #content-wrapper {
@@ -112,14 +109,17 @@
 </head>
   
 
+  <video autoplay muted loop id="shortgradient">
+  <source src="shortgradient.mp4" type="video/mp4">
+  </video>
   
 <body>
 
 
-  <video autoplay muted loop id="shortgradient">
+<!--   <video autoplay muted loop id="shortgradient">
   <source src="shortgradient.mp4" type="video/mp4">
   </video>
-
+ -->
   
   <h1>The Five Minute Journal</h1>
   <a href= "homepage.html">
