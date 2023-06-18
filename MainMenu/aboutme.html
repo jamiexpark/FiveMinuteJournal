@@ -5,30 +5,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
+    <style>
+        #nameForm {
+            display: none; /* Hide the form initially */
+        }
+    </style>
 </head>
 <body>
-    <h1 id="welcome-message">Welcome Back {name}</h1>
+    <h1 id="welcomeMessage">Welcome Back</h1>
+
+    <form id="nameForm">
+        <label for="nameInput">What is your name?</label>
+        <input type="text" id="nameInput">
+        <button type="submit">Save</button>
+    </form>
 
     <script>
-        // Check if the user's name is already stored in local storage
-        var storedName = localStorage.getItem('name');
+        // Check if the name is already stored in localStorage
+        var storedName = localStorage.getItem("name");
 
+        // Get the necessary elements from the DOM
+        var welcomeMessage = document.getElementById("welcomeMessage");
+        var nameForm = document.getElementById("nameForm");
+        var nameInput = document.getElementById("nameInput");
+
+        // Function to handle form submission
+        function saveName(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var name = nameInput.value;
+            localStorage.setItem("name", name); // Store the name in localStorage
+
+            welcomeMessage.textContent = "Welcome Back " + name; // Update the welcome message
+            nameForm.style.display = "none"; // Hide the form
+        }
+
+        // Check if the name is stored and display it, or show the form to enter the name
         if (storedName) {
-            // Display the welcome message with the stored name
-            var welcomeMessage = document.getElementById('welcome-message');
-            welcomeMessage.textContent = 'Welcome Back ' + storedName;
+            welcomeMessage.textContent = "Welcome Back " + storedName;
         } else {
-            // Prompt the user for their name and store it
-            var name = prompt('What is your name?');
-
-            if (name) {
-                // Save the name in local storage
-                localStorage.setItem('name', name);
-
-                // Update the welcome message with the entered name
-                var welcomeMessage = document.getElementById('welcome-message');
-                welcomeMessage.textContent = 'Welcome Back ' + name;
-            }
+            nameForm.style.display = "block";
+            nameForm.addEventListener("submit", saveName);
         }
     </script>
 </body>
