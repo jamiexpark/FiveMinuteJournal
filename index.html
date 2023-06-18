@@ -11,13 +11,28 @@
     }
     
     body {
-      text-align: center;
+     text-align: center;
       font-family: Arial, sans-serif;
       animation: slowerAnimation 10s linear infinite;
-      background-image: "shortgradient.mp4";
-      background-repeat: no-repeat;
-      background-size: cover;
+      margin: 0;
+      padding: 0;
+      height: 100%;
     }
+    
+    #video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1; /* Ensure video is behind other content */
+    }
+
+    #content-wrapper {
+      position: relative;
+      z-index: 1; /* Ensure content appears on top of video */
+    }
+    
     
     h1 {
       font-size: 32px;
@@ -96,11 +111,16 @@
   </style>
 </head>
   
-<video autoplay muted loop id="shortgradient">
-  <source src="shortgradient.mp4" type="video/mp4">
-</video>
+
   
 <body>
+
+
+  <video autoplay muted loop id="shortgradient">
+  <source src="shortgradient.mp4" type="video/mp4">
+  </video>
+
+  
   <h1>The Five Minute Journal</h1>
   <a href= "homepage.html">
     <button class="button"> Home </button>
