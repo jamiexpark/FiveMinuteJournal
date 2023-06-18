@@ -7,8 +7,29 @@
     <title>About Me</title>
 </head>
 <body>
-    <h1>Welcome Back {name}</h1>
+    <h1 id="welcome-message">Welcome Back {name}</h1>
 
-    
+    <script>
+        // Check if the user's name is already stored in local storage
+        var storedName = localStorage.getItem('name');
+
+        if (storedName) {
+            // Display the welcome message with the stored name
+            var welcomeMessage = document.getElementById('welcome-message');
+            welcomeMessage.textContent = 'Welcome Back ' + storedName;
+        } else {
+            // Prompt the user for their name and store it
+            var name = prompt('What is your name?');
+
+            if (name) {
+                // Save the name in local storage
+                localStorage.setItem('name', name);
+
+                // Update the welcome message with the entered name
+                var welcomeMessage = document.getElementById('welcome-message');
+                welcomeMessage.textContent = 'Welcome Back ' + name;
+            }
+        }
+    </script>
 </body>
 </html>
