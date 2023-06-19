@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Come back later!</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+      p{
+        font-size: 17px;
+        color: rgb(61, 61, 61);
+      }
+    </style>
+</head>
+<body>
+  <!-- <div id="video-container">
+    <video autoplay muted loop id="video-background" class="back-video">
+      <source src="shortgradient.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video> -->
+
+
+
+    <header>
+      <div class="header-left">
+        <h1>Five Minute Journal</h1>
+      </div>
+      <div class="header-right">
+        <nav>
+          <ul>
+            <li><a href="/homepage.html"><img src="/Assets/House_01.svg" alt="Home" class="icon"></a></li>
+            <li><a href="/MainMenu/aboutme.html"><img src="/Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
+            <!-- <li><a href="/goals.html">Goals</a></li> -->
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+  
+    <h2>Looks like it's not within your morning and night time frames...</h2>
+    <p>That's ok! Come back within your end time to end off the day. Tomorrow's a new day!</p>
+
+    <p>Start Time: <span id="startTimeText"></span></p>
+    <p>End Time: <span id="endTimeText"></span></p>
+    <p>Current Time: <span id="currentTimeText"></span></p>
+    <p id="timeFrameText"></p>
+
+    <script>
+      const startTime = localStorage.getItem("startTime");
+      const endTime = localStorage.getItem("endTime");
+
+      const startTimeText = document.getElementById("startTimeText");
+      const endTimeText = document.getElementById("endTimeText");
+      const currentTimeText = document.getElementById("currentTimeText");
+      const timeFrameText = document.getElementById("timeFrameText");
+
+      startTimeText.textContent = startTime;
+      endTimeText.textContent = endTime;
+
+      function updateClock() {
+        const currentTimeElement = document.getElementById("currentTimeText");
+
+        fetch('http://worldtimeapi.org/api/ip')
+          .then(response => response.json())
+          .then(data => {
+            const currentTime = data.datetime.split('T')[1].slice(0, 5);
+            currentTimeElement.textContent = currentTime;
+
+            const currentHour = parseInt(currentTime.split(':')[0]);
+
+            const startHour = parseInt(startTime.split(':')[0]);
+            const endHour = parseInt(endTime.split(':')[0]);
+
+            const timeFrame1Start = (startHour + 23) % 24;
+            const timeFrame1End = startHour;
+            const timeFrame2Start = (endHour + 23) % 24;
+            const timeFrame2End = endHour;
+
+            if (
+              (currentHour >= timeFrame1Start && currentHour < timeFrame1End) ||
+              (currentHour >= timeFrame2Start && currentHour < timeFrame2End)
+            ) {
+              timeFrameText.textContent = `Current Time Frame: ${timeFrame1Start}:00 to ${timeFrame1End}:00 and ${timeFrame2Start}:00 to ${timeFrame2End}:00`;
+            } else {
+              timeFrameText.textContent = "Current Time Frame: Not within morning or night time frames";
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      }
+
+      updateClock();
+      setInterval(updateClock, 1000);
+    </script>
+  </div>
+</body>
+</html>

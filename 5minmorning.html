@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Five Minute Journal</title>
+  <link rel= "stylesheet" href= "style.css">
+</head>
+
+<body>
+
+  <!-- <div id="video-container">
+    <video autoplay muted loop id="video-background" class="back-video">
+      <source src="shortgradient.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video> -->
+
+<div id="background"></div>
+
+<div id="sunrise"></div>
+
+
+<header>
+  <div class="header-left">
+    <h1>Five Minute Journal</h1>
+  </div>
+  <div class="header-right">
+    <nav>
+      <ul>
+        <li><a href="/homepage.html"><img src="/Assets/House_01.svg" alt="Home" class="icon"></a></li>
+        <li><a href="/MainMenu/aboutme.html"><img src="/Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
+        <!-- <li><a href="/goals.html">Goals</a></li> -->
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<div class= "submits">
+
+   <div id="question-1" class="question">
+    <p>I am grateful for...</p>
+    <div class="input-group">
+      <input type="text" id="grateful-input-1" placeholder="1..." />
+      <input type="text" id="grateful-input-2" placeholder="2..." />
+      <input type="text" id="grateful-input-3" placeholder="3..." />
+    </div>
+    <p class="reminder">Please fill in all three spaces.</p>
+  </div>
+
+  <div id="question-2" class="question" style="display: none;">
+    <p>What would make today great?</p>
+    <div class="input-group">
+      <input type="text" id="great-input-1" placeholder="Blank" />
+      <input type="text" id="great-input-2" placeholder="Blank" />
+    </div>
+    <p class="reminder">Please fill in both spaces.</p>
+  </div>
+</div>
+  
+
+  <div id="question-3" class="question" style="display: none;">
+    <p>Daily Affirmation</p>
+    <div class="input-group">
+      <textarea id="affirmation-input" rows="3" placeholder="Blank"></textarea>
+    </div>
+    <p class="reminder">Please fill in the space.</p>
+  </div>
+
+  <div id= "completion-message" class= "filler" style= "display: none;">
+    <p id="completion-message" style="display: none;">We are proud of you. Check back in the evening to finish your routine.</p>
+    <p> Good job!</p>
+</div>
+
+  <button id="home-button" style="display: none;">Home</button>
+
+  <script>
+
+    
+    let questionCount = 3;
+
+    // Check if the user has filled in all three grateful inputs
+    function checkGratefulInputs() {
+      const gratefulInputs = document.querySelectorAll("#grateful-input-1, #grateful-input-2, #grateful-input-3");
+      for (let input of gratefulInputs) {
+        if (input.value.trim() === "") {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    // Check if the user has filled in both great inputs
+    function checkGreatInputs() {
+      const greatInputs = document.querySelectorAll("#great-input-1, #great-input-2");
+      for (let input of greatInputs) {
+        if (input.value.trim() === "") {
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Check if the user has filled in the affirmation input
+    function checkAffirmationInput() {
+      const affirmationInput = document.querySelector("#affirmation-input");
+      return affirmationInput.value.trim() !== "";
+    }
+
+    // Check if the user has filled in all three highlight inputs
+    // function checkHighlightInputs() {
+    //   const highlightInputs = document.querySelectorAll("#highlight-input-1, #highlight-input-2, #highlight-input-3");
+    //   for (let input of highlightInputs) {
+    //     if (input.value.trim() === "") {
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // }
+
+    // Check if the user has filled in both learn inputs
+    // function checkLearnInputs() {
+    //   const learnInputs = document.querySelectorAll("#learn-input-1, #learn-input-2");
+    //   for (let input of learnInputs) {
+    //     if (input.value.trim() === "") {
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // }
+
+    // Show the next question based on the current input
+    function showNextQuestion() {
+      const question1 = document.getElementById("question-1");
+      const question2 = document.getElementById("question-2");
+      const question3 = document.getElementById("question-3");
+      // const nightRoutine = document.getElementById("night-routine");
+      // const question4 = document.getElementById("highlights-of-day");
+      // const question5 = document.getElementById("learn-today");
+      // const startNight = document.getElementById("night-routine")
+      const completionMessage = document.getElementById("completion-message");
+
+      if (checkGratefulInputs()) {
+        question1.style.display = "none";
+        question2.style.display = "block";
+      }
+
+      if (checkGreatInputs()) {
+        question2.style.display = "none";
+        question3.style.display = "block";
+      }
+
+      if (checkAffirmationInput()) {
+        question3.style.display = "none";
+        completionMessage.style.display = "block";
+        completionMessage.style.display = "block";
+      }
+
+      // if (checkHighlightInputs()) {
+      //   question4.style.display = "none"
+      //   // nightRoutine.style.display = "none";
+      //   question5.style.display = "block";
+      // }
+
+      // if (checkLearnInputs()) {
+      //   question5.style.display = "none"
+      //   question5.style.display = "none";
+      //   question5.style.display = "block";
+        
+      // }
+
+      if (checkGratefulInputs() && checkGreatInputs() && checkAffirmationInput() && checkHighlightInputs() && checkLearnInputs()) {
+        const streakMessage = document.createElement("p");
+        const streakCount = getStreakCount();
+        
+        // streakMessage.textContent = `You're on a ${streakCount} day streak! Come back tomorrow.`;
+        streakMessage.textContent = "Good job!";
+        completionMessage.parentNode.insertBefore(streakMessage, completionMessage.nextSibling);
+        showHomePage();
+      }
+    }
+
+    // Get the streak count from local storage
+    function getStreakCount() {
+      let streakCount = localStorage.getItem("streakCount");
+      if (streakCount === null) {
+        streakCount = 1;
+      } else {
+        streakCount = parseInt(streakCount) + 1;
+      }
+      localStorage.setItem("streakCount", streakCount);
+      return streakCount;
+    }
+
+    // Show the idle popup
+    // function showIdlePopup() {
+    //   const idlePopup = document.getElementById("idle-popup");
+    //   idlePopup.style.display = "flex";
+    // }
+
+    // Show the homepage
+    function showHomePage() {
+      const homepage = document.getElementById("homepage");
+      const homeButton = document.getElementById("home-button");
+
+      homepage.style.display = "block";
+      homeButton.style.display = "block";
+    }
+
+    // Event listeners for input changes
+    const gratefulInputs = document.querySelectorAll("#grateful-input-1, #grateful-input-2, #grateful-input-3");
+    const greatInputs = document.querySelectorAll("#great-input-1, #great-input-2");
+    const affirmationInput = document.querySelector("#affirmation-input");
+    const highlightInputs = document.querySelectorAll("#highlight-input-1, #highlight-input-2, #highlight-input-3");
+    const learnInputs = document.querySelectorAll("#learn-input-1, #learn-input-2");
+
+    for (let input of gratefulInputs) {
+      input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          showNextQuestion();
+        
+        }
+      });
+    }
+   
+  
+
+    for (let input of greatInputs) {
+      input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          showNextQuestion();
+        }
+      });
+    }
+
+    affirmationInput.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        showNextQuestion();
+      }
+    });
+
+    // for (let input of highlightInputs) {
+    //   input.addEventListener("keypress", function (event) {
+    //     if (event.key === "Enter") {
+    //       event.preventDefault();
+    //       showNextQuestion();
+    //     }
+    //   });
+    // }
+
+    // for (let input of learnInputs) {
+    //   input.addEventListener("keypress", function (event) {
+    //     if (event.key === "Enter") {
+    //       event.preventDefault();
+    //       showNextQuestion();
+    //     }
+    //   });
+    // }
+
+    // Night routine button click event
+    const nightRoutineButton = document.getElementById("night-routine-btn");
+    nightRoutineButton.addEventListener("click", function () {
+    //   const nightRoutine = document.getElementById("night-routine");
+      const highlightsOfDay = document.getElementById("highlights-of-day");
+    //   nightRoutine.style.display = "none";
+      highlightsOfDay.style.display = "block";
+    });
+
+    // Home button click event
+    const homeButton = document.getElementById("home-button");
+    homeButton.addEventListener("click", function () {
+      const homepage = document.getElementById("homepage");
+      homepage.style.display = "block";
+    });
+
+    const sunriseElement = document.getElementById('sunrise');
+    let sunriseOffset = 0;
+    let isAnimationStarted = false;
+    function startSunriseAnimation() {
+    sunriseElement.classList.add('animate-sunrise');
+    sunriseElement.addEventListener('animationend', function () {
+    sunriseElement.classList.remove('animate-sunrise');
+  });
+}
+
+    // Idle detection
+    // let idleTimer;
+    // const idleTimeout = 5000; // 5 seconds
+
+    // function resetIdleTimer() {
+    //  a clearTimeout(idleTimer);
+    //   idleTimer = setTimeout(showIdlePopup, idleTimeout);
+    // }
+
+    // document.addEventListener("mousemove", resetIdleTimer);
+    // document.addEventListener("keypress", resetIdleTimer);
+    // document.addEventListener("touchstart", resetIdleTimer);
+
+    // resetIdleTimer();
+
+    const startTime = localStorage.getItem("startTime");
+    const endTime = localStorage.getItem("endTime");
+    const currentHour = new Date().getHours();
+
+    // if (!(startTime && endTime && currentHour >= parseInt(startTime.split(":")[0]) && currentHour <= parseInt(endTime.split(":")[0]))) {
+    //   // Open the popup window
+    //   window.open("popup.html", "_blank", "width=400,height=300");
+    // }
+  </script>
+</body>
+</html>

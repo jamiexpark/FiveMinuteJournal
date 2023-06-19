@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Choose Your Timeframe</title>
+  <link rel= "stylesheet" href= "style.css">
+  <!-- <style>
+    .clock{
+      font-size: 24px;
+    }
+    
+  </style> -->
+</head>
+<body>
+
+
+
+  <!-- <div id="video-container">
+    <video autoplay muted loop id="video-background" class="back-video">
+      <source src="shortgradient.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video> -->
+
+
+
+    <header>
+      <div class="header-left">
+        <h1>Five Minute Journal</h1>
+      </div>
+      <div class="header-right">
+        <nav>
+          <ul>
+            <li><a href="/homepage.html"><img src="/Assets/House_01.svg" alt="Home" class="icon"></a></li>
+            <li><a href="/MainMenu/aboutme.html"><img src="/Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+  <h1>When do you want to start and end your day?</h1>
+  <form id="timeFrameForm">
+    <label for="startTime">Start Time:</label>
+    <input type="time" id="startTime" required>
+    <br>
+    <label for="endTime">End Time:</label>
+    <input type="time" id="endTime" required>
+    <br>
+    <button type="button" onclick="saveTimeFrame()">Next</button>
+  </form>
+
+  <div class="clock">
+    Current Time: <span id="currentTime"></span>
+  </div>
+
+  <script>
+    function saveTimeFrame() {
+      const startTimeInput = document.getElementById("startTime");
+      const endTimeInput = document.getElementById("endTime");
+      const startTime = startTimeInput.value;
+      const endTime = endTimeInput.value;
+
+      // Convert start time to 24-hour format
+      const startParts = startTime.split(":");
+      let startHour = parseInt(startParts[0]);
+      const startMinute = parseInt(startParts[1]);
+      const startPeriod = startTime.slice(-2);
+
+      if (startPeriod === "PM" && startHour !== 12) {
+        startHour += 12;
+      } else if (startPeriod === "AM" && startHour === 12) {
+        startHour = 0;
+      }
+
+      // Convert end time to 24-hour format
+      const endParts = endTime.split(":");
+      let endHour = parseInt(endParts[0]);
+      const endMinute = parseInt(endParts[1]);
+      const endPeriod = endTime.slice(-2);
+
+      if (endPeriod === "PM" && endHour !== 12) {
+        endHour += 12;
+      } else if (endPeriod === "AM" && endHour === 12) {
+        endHour = 0;
+      }
+
+      localStorage.setItem("startTime", startHour.toString() + ":" + startMinute.toString());
+      localStorage.setItem("endTime", endHour.toString() + ":" + endMinute.toString());
+
+      // Redirect to the next page
+      window.location.href = "5minmorning.html";
+    }
+
+
+    function updateClock() {
+      const currentTimeElement = document.getElementById("currentTime");
+
+      fetch('http://worldtimeapi.org/api/ip')
+        .then(response => response.json())
+        .then(data => {
+          const currentTime = data.datetime.split('T')[1].slice(0, 5);
+          currentTimeElement.textContent = currentTime;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>

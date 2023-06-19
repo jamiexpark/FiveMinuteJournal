@@ -5,16 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
-    <link rel= "stylesheet" href= "style.css">
-    <!-- <style>
-        #nameForm {
-            display: none; /* Hide the form initially */
-        }
-    </style> -->
-
+    <link rel= "stylesheet" href= "/style.css">
 
 </head>
 <body>
+    <header>
+        <div class="header-left">
+          <h1>Five Minute Journal</h1>
+        </div>
+        <div class="header-right">
+          <nav>
+            <ul>
+              <li><a href="/homepage.html"><img src="/Assets/House_01.svg" alt="Home" class="icon"></a></li>
+              <li><a href="/MainMenu/aboutme.html"><img src="/Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
+            </ul>
+          </nav>
+        </div>
+    </header>
+  
+        
+
     <h1 id="welcomeMessage">Welcome Back</h1>
 
     <form id="nameForm">
@@ -22,6 +32,9 @@
         <input type="text" id="nameInput">
         <button type="submit">Save</button>
     </form>
+
+
+    
 
     <script>
         // Check if the name is already stored in localStorage
@@ -46,6 +59,7 @@
         // Check if the name is stored and display it, or show the form to enter the name
         if (storedName) {
             welcomeMessage.textContent = "Welcome Back " + storedName;
+            nameForm.style.display = "none";
         } else {
             nameForm.style.display = "block";
             nameForm.addEventListener("submit", saveName);
