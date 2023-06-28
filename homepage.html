@@ -4,60 +4,69 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel= "stylesheet" href= "./style.css">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="./style.css">
     <style>
-    /* body {
-      text-align: center;
-      font-family: Arial, sans-serif;
+     .button-image {
+    width: 50px;
+    height: 50px;
+    margin: 20px;
     }
-    
-    h1 {
-      font-size: 32px;
-    } */
+
+     .button-container {
+    /* display: grid; */ /* Remove this line */
+    /* grid-template-columns: repeat(2, 1fr); */ /* Remove this line */
+    gap: 10px 0px; /* Reduce the spacing between buttons */
+    /* gap: 50px; */
+    }
+    a {
+    text-decoration: none;
+    }
+
+    .h1 {
+      margin-top: 10px;
+    }
+
+        
     </style>
 </head>
 
-
 <body>
-
     <div id="background"></div>
- 
-
 
     <header>
         <div class="header-left">
-          <h1>Five Minute Journal</h1>
+            <h1>Five Minute Journal</h1>
         </div>
         <div class="header-right">
-          <nav>
-            <ul>
-              <li><a href="./homepage.html"><img src="./Assets/House_01.svg" alt="Home" class="icon"></a></li>
-              <li><a href="./MainMenu/aboutme.html"><img src="./Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
-              <!-- <li><a href="/goals.html">Goals</a></li> -->
-            </ul>
-          </nav>
+            <nav>
+                <ul>
+                    <li><a href="./homepage.html"><img src="./Assets/House_01.svg" alt="Home" class="icon"></a></li>
+                    <li><a href="./MainMenu/aboutme.html"><img src="./Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
+                    <!-- <li><a href="/goals.html">Goals</a></li> -->
+                </ul>
+            </nav>
         </div>
-      </header>
+    </header>
 
-    
-    <h1>5 Minute Journal</h1>
-    <a href= "./MainMenu/calendar.html">
-        <button class="button"> Calendar </button>
-    </a>
+    <h1 class="animated-text">Welcome to the Five Minute Journal!</h1>
 
+    <div class="button-container">
+        <a href="./MainMenu/calendar.html">
+            <img src="./Assets/calendaricon.svg" alt="Calendar" class="button-image">
+        </a>
 
-    
-    <a href= "./MainMenu/aboutme.html">
-        <button class="button"> About Me </button>
-    </a>
+        <a href="./MainMenu/aboutme.html">
+            <img src="./Assets/aboutmeicon.svg" alt="About Me" class="button-image">
+        </a>
 
-    <a href= "./MainMenu/goals.html">
-        <button class="button"> Goals </button>
-    </a>
+        <a href="./MainMenu/goals.html">
+            <img src="./Assets/goalsicon.svg" alt="Goals" class="button-image">
+        </a>
 
-    <a href= "index.html"">
-        <button class="button"> Continue Journalling </button>
-    </a>
+        <a href="index.html">
+            <img src="./Assets/keepjournalingicon.svg" alt="Goals" class="button-image">
+        </a>
+    </div>
 </body>
 </html>

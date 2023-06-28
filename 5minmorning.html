@@ -59,18 +59,23 @@
 </div>
   
 
+
+
   <div id="question-3" class="question" style="display: none;">
     <p>Daily Affirmation</p>
     <div class="input-group">
       <textarea id="affirmation-input" rows="3" placeholder="Blank"></textarea>
     </div>
     <p class="reminder">Please fill in the space.</p>
+    
   </div>
+
+  <button onclick="storeAnswers()">Submit</button>
 
   <div id= "completion-message" class= "filler" style= "display: none;">
     <p id="completion-message" style="display: none;">We are proud of you. Check back in the evening to finish your routine.</p>
     <p> Good job!</p>
-</div>
+  </div>
 
   <button id="home-button" style="display: none;">Home</button>
 
@@ -310,6 +315,27 @@
     //   // Open the popup window
     //   window.open("popup.html", "_blank", "width=400,height=300");
     // }
+
+
+      // Function to store the user answers
+      function storeAnswers() {
+            var gratefulInput1 = document.getElementById('grateful-input-1').value;
+            var gratefulInput2 = document.getElementById('grateful-input-2').value;
+            var gratefulInput3 = document.getElementById('grateful-input-3').value;
+            var greatInput1 = document.getElementById('great-input-1').value;
+            var greatInput2 = document.getElementById('great-input-2').value;
+            var affirmationInput = document.getElementById('affirmation-input').value;
+
+            // Store the answers in local storage
+            localStorage.setItem('userAnswers', JSON.stringify({
+                gratefulInput1: gratefulInput1,
+                gratefulInput2: gratefulInput2,
+                gratefulInput3: gratefulInput3,
+                greatInput1: greatInput1,
+                greatInput2: greatInput2,
+                affirmationInput: affirmationInput
+            }));
+        }
   </script>
 </body>
 </html>

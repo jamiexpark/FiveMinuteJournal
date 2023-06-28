@@ -9,6 +9,16 @@
     }
     
   </style> -->
+
+<style>
+   
+   p {
+      font-size: 12px;
+        color: rgb(122, 122, 122); /* Set the text color to red using RGB values */
+        font-family: "Helvetica", sans-serif; /* Set the font to Arial or a preferred font */
+        font-weight: bold;
+    }
+</style>
 </head>
 <body>
 
@@ -36,22 +46,102 @@
       </div>
     </header>
 
-  <h1>First time here? No problem! When do you want to start and end your day?</h1>
-  <form id="timeFrameForm">
-    <label for="startTime">Start Time:</label>
-    <input type="time" id="startTime" required>
-    <br>
-    <label for="endTime">End Time:</label>
-    <input type="time" id="endTime" required>
-    <br>
-    <button type="button" onclick="saveTimeFrame()">Next</button>
-  </form>
+    <div id="intro" class="question">
+      <h1>Welcome to the 5 minute journal. </h1>
+      <p>Journaling helps you by improving your mental health, boosting self confidence, and lets you look back on your days with love. , and with us, itl be easy to build a healthy habit. </p>
+    </div>
 
-  <div class="clock">
-    Current Time: <span id="currentTime"></span>
-  </div>
+    <div id="question-1" class="question">
+       <p>What should we call you?</p>
+       <div class="input-group">
+         <input type="text" id="grateful-input-1" placeholder="Name..." />
+         <!-- <input type="text" id="grateful-input-2" placeholder="2..." />
+         <input type="text" id="grateful-input-3" placeholder="3..." /> -->
+       </div>
+       <p class="reminder">Please fill in all three spaces.</p>
+     </div>
+     
+   
+
+     <div id="question-2" class="question" style="display: none;">
+      <h3>When would you like to start and end your day?</h3>
+      <p>These are the times your journal will be open for you to submit. Be sure to fill them out when you wake up and when you go to bed!</p>
+      <form id="timeFrameForm">
+        <label for="startTime">Start Time:</label>
+        <input type="time" id="startTime" required>
+       <br>
+        <label for="endTime">End Time:</label>
+        <input type="time" id="endTime" required>
+        <br>
+      <button type="button" onclick="saveTimeFrame()">Next</button>
+      </form>
+  
+      <div class="clock">
+      Current Time: <span id="currentTime"></span>
+      </div>
 
   <script>
+
+  function checkGratefulInputs() {
+      const gratefulInputs = document.querySelectorAll("#grateful-input-1, #grateful-input-2, #grateful-input-3");
+      for (let input of gratefulInputs) {
+        if (input.value.trim() === "") {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+
+
+  // function checkTime() {
+  //       if ((startTime != NaN) && (endTime != NaN)) {
+  //         return true;
+  //       }
+  //     return false;
+  //   }
+
+
+
+    function showNextQuestion() {
+      const question1 = document.getElementById("question-1");
+      const question2 = document.getElementById("question-2");
+
+    if (checkGratefulInputs()) {
+        question1.style.display = "none";
+        question2.style.display = "block";
+      }
+    
+
+  if (checkTime()) {
+        question2.style.display = "none";
+        question3.style.display = "block";
+      }
+
+
+
+
+    }
+
+
+
+
+    const gratefulInputs = document.querySelectorAll("#grateful-input-1");
+    
+
+
+    for (let input of gratefulInputs) {
+      input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          showNextQuestion();
+        
+        }
+      });
+    }
+
+
     function saveTimeFrame() {
       const startTimeInput = document.getElementById("startTime");
       const endTimeInput = document.getElementById("endTime");

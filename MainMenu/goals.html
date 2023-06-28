@@ -5,16 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Goals</title>
-    <link rel= "stylesheet" href= "./style.css">
-    <!-- <style>
-        #nameForm {
-            display: none; /* Hide the form initially */
-        }
-    </style> -->
-
-
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+
     <div id="background"></div>
     <header>
         <div class="header-left">
@@ -30,48 +24,80 @@
           </nav>
         </div>
       </header>
-<!-- 
-    <a href= "/homepage.html">
-        <button class="button"> Home </button>
-      </a> -->
+
 
     <h1 id="welcomeMessage">My Goals</h1>
 
-    <form id="nameForm">
-        <label for="nameInput">What are your goals? (btw this doesnt work)</label>
-        <input type="text" id="nameInput">
-        <!-- <input type="text" id="nameInput">
-        <input type="text" id="nameInput"> -->
+    <form id="goalsForm">
+        <label for="goal1Input">Goal 1:</label>
+        <input type="text" id="goal1Input"><br>
+        <label for="goal2Input">Goal 2:</label>
+        <input type="text" id="goal2Input"><br>
+        <label for="goal3Input">Goal 3:</label>
+        <input type="text" id="goal3Input"><br>
         <button type="submit">Save</button>
     </form>
 
+    <button id="editButton">Edit Goals</button>
+
+    <h3 id="goal1"></h3>
+    <h3 id="goal2"></h3>
+    <h3 id="goal3"></h3>
+
     <script>
-        // Check if the name is already stored in localStorage
-        var storedName = localStorage.getItem("name");
+        // Check if the goals are already stored in localStorage
+        var storedGoals = JSON.parse(localStorage.getItem("goals"));
 
         // Get the necessary elements from the DOM
         var welcomeMessage = document.getElementById("welcomeMessage");
-        var nameForm = document.getElementById("nameForm");
-        var nameInput = document.getElementById("nameInput");
+        var goalsForm = document.getElementById("goalsForm");
+        var goal1Input = document.getElementById("goal1Input");
+        var goal2Input = document.getElementById("goal2Input");
+        var goal3Input = document.getElementById("goal3Input");
+        var editButton = document.getElementById("editButton");
+        var goal1 = document.getElementById("goal1");
+        var goal2 = document.getElementById("goal2");
+        var goal3 = document.getElementById("goal3");
 
         // Function to handle form submission
-        function saveName(event) {
+        function saveGoals(event) {
             event.preventDefault(); // Prevent form submission
 
-            var name = nameInput.value;
-            localStorage.setItem("name", name); // Store the name in localStorage
+            var goals = {
+                goal1: goal1Input.value,
+                goal2: goal2Input.value,
+                goal3: goal3Input.value
+            };
 
-            welcomeMessage.textContent = name + "'s Goals"; // Update the welcome message
-            nameForm.style.display = "none"; // Hide the form
+            localStorage.setItem("goals", JSON.stringify(goals)); // Store the goals in localStorage
+
+            goal1.textContent = goals.goal1; // Update the goal1 display
+            goal2.textContent = goals.goal2; // Update the goal2 display
+            goal3.textContent = goals.goal3; // Update the goal3 display
+
+            goalsForm.style.display = "none"; // Hide the form
+            editButton.style.display = "block"; // Show the edit button
         }
 
-        // Check if the name is stored and display it, or show the form to enter the name
-        if (storedName) {
-            welcomeMessage.textContent =  name + "Goals";
+        // Function to handle editing goals
+        function editGoals() {
+            goalsForm.style.display = "block"; // Show the form
+            editButton.style.display = "none"; // Hide the edit button
+        }
+
+        // Check if the goals are stored and display them, or show the form to enter the goals
+        if (storedGoals) {
+            goal1.textContent = storedGoals.goal1;
+            goal2.textContent = storedGoals.goal2;
+            goal3.textContent = storedGoals.goal3;
+            editButton.style.display = "block";
+            goalsForm.style.display = "none";
         } else {
-            nameForm.style.display = "block";
-            nameForm.addEventListener("submit", saveName);
+            goalsForm.style.display = "block";
+            goalsForm.addEventListener("submit", saveGoals);
         }
+
+        editButton.addEventListener("click", editGoals);
     </script>
 </body>
 </html>

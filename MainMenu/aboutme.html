@@ -5,8 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
-    <link rel= "stylesheet" href= "./style.css">
-
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <header>
@@ -16,16 +15,18 @@
         <div class="header-right">
           <nav>
             <ul>
-              <li><a href="./homepage.html"><img src="./Assets/House_01.svg" alt="Home" class="icon"></a></li>
-              <li><a href="./MainMenu/aboutme.html"><img src="./Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
+              <li><a href="homepage.html"><img src="/Assets/House_01.svg" alt="Home" class="icon"></a></li>
+              <li><a href="./MainMenu/aboutme.html"><img src="/Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
             </ul>
           </nav>
         </div>
     </header>
-  
-        
 
     <h1 id="welcomeMessage">Welcome Back</h1>
+
+    <div id="editNameContainer">
+        <button id="editNameButton">Edit Name</button>
+    </div>
 
     <form id="nameForm">
         <label for="nameInput">What is your name?</label>
@@ -33,15 +34,11 @@
         <button type="submit">Save</button>
     </form>
 
-
-
-
     <script>
-        // Check if the name is already stored in localStorage
-        var storedName = localStorage.getItem("name");
-
         // Get the necessary elements from the DOM
         var welcomeMessage = document.getElementById("welcomeMessage");
+        var editNameContainer = document.getElementById("editNameContainer");
+        var editNameButton = document.getElementById("editNameButton");
         var nameForm = document.getElementById("nameForm");
         var nameInput = document.getElementById("nameInput");
 
@@ -54,16 +51,35 @@
 
             welcomeMessage.textContent = "Welcome Back " + name; // Update the welcome message
             nameForm.style.display = "none"; // Hide the form
+            editNameContainer.style.display = "block"; // Display the edit name container
         }
+
+        // Function to handle editing the name
+        function editName() {
+            editNameContainer.style.display = "none"; // Hide the edit name container
+            nameForm.style.display = "block"; // Display the name form
+            nameInput.value = localStorage.getItem("name") || ""; // Set the input field value to the stored name, or an empty string if not found
+            storedName = nameInput.value;
+            localStorage.getItem("name") = storedName;
+        }
+
+        // Check if the name is already stored in localStorage
+        var storedName = localStorage.getItem("name");
 
         // Check if the name is stored and display it, or show the form to enter the name
         if (storedName) {
             welcomeMessage.textContent = "Welcome Back " + storedName;
+            editNameContainer.style.display = "block";
             nameForm.style.display = "none";
         } else {
+            welcomeMessage.textContent = "Welcome!";
+            editNameContainer.style.display = "none";
             nameForm.style.display = "block";
             nameForm.addEventListener("submit", saveName);
         }
+
+        // Add event listener to the edit name button
+        editNameButton.addEventListener("click", editName);
     </script>
 </body>
 </html>

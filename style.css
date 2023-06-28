@@ -82,7 +82,7 @@
     
     p {
       font-size: 32px;
-        color: rgb(255, 255, 255); /* Set the text color to red using RGB values */
+        color: rgb(122, 122, 122); /* Set the text color to red using RGB values */
         font-family: "Helvetica", sans-serif; /* Set the font to Arial or a preferred font */
         font-weight: bold;
     }
@@ -294,7 +294,42 @@
 
     }
 
+    #sunfall {
+      position: fixed;
+      top: -1000;
+      left: 0;
+      width: 100%;
+      height: 110%;
+      background: url('./Assets/sun.svg') no-repeat center center;
+      background-position: center;
+      z-index: -1;
+      animation: sunfallAnimation 3s ease forwards;
+
+    }
+
    #sunrise.animate-sunrise {
       animation: sunriseAnimation 3s ease;
     } 
-    
+
+
+   #sunrise.animate-sunfall {
+    animation: sunfallAnimation 6s ease;
+  } 
+  
+  @keyframes sunfallAnimation {
+    0% {
+      top: -1000px;
+    }
+    100% {
+      top: calc(10% - 50px); /* Adjust the value based on the desired position of the sun at the center */
+    }
+  }
+
+
+  /* Add the following CSS rules */
+ 
+  .animated-text {
+    color: rgb(245, 218, 218);
+    margin-top: 40px;
+}
+

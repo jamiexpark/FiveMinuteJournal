@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>Calendar</title>
-  <link rel= "stylesheet" href= "./style.css">
+  <link rel= "stylesheet" href= "/style.css">
   <style>
     .calendar {
       font-family: Arial, sans-serif;
@@ -48,7 +48,7 @@
     <div class="header-right">
       <nav>
         <ul>
-          <li><a href="./homepage.html"><img src="./Assets/House_01.svg" alt="Home" class="icon"></a></li>
+          <li><a href="homepage.html"><img src="./Assets/House_01.svg" alt="Home" class="icon"></a></li>
           <li><a href="./MainMenu/aboutme.html"><img src="./Assets/User_Square.svg" alt="AboutMe" class="icon"></a></li>
           <!-- <li><a href="/goals.html">Goals</a></li> -->
         </ul>
@@ -85,6 +85,29 @@
   </div>
 
   <script>
+      function retrieveAnswers() {
+            var userAnswers = localStorage.getItem('userAnswers');
+            if (userAnswers) {
+                userAnswers = JSON.parse(userAnswers);
+
+                // Access the individual answers
+                var gratefulInput1 = userAnswers.gratefulInput1;
+                var gratefulInput2 = userAnswers.gratefulInput2;
+                var gratefulInput3 = userAnswers.gratefulInput3;
+                var greatInput1 = userAnswers.greatInput1;
+                var greatInput2 = userAnswers.greatInput2;
+                var affirmationInput = userAnswers.affirmationInput;
+
+                // Do something with the retrieved answers
+                console.log(gratefulInput1, gratefulInput2, gratefulInput3);
+                console.log(greatInput1, greatInput2);
+                console.log(affirmationInput);
+            }
+        }
+
+        // Call the function to retrieve answers when the page loads
+        window.onload = retrieveAnswers;
+
     var currentMonth = new Date().getMonth();
     var currentYear = new Date().getFullYear();
 
@@ -148,16 +171,44 @@
     }
 
     function openPopup(day) {
-      var popup = document.getElementById('popup');
-      var popupContent = document.getElementById('popup-content');
-      var closeBtn = document.querySelector('.close-button');
+  var popup = document.getElementById('popup');
+  var popupContent = document.getElementById('popup-content');
+  var closeBtn = document.querySelector('.close-button');
 
-      popupContent.innerHTML = 'Hello'; // Placeholder content
+  // Retrieve the stored user answers
+  var userAnswers = localStorage.getItem('userAnswers');
+  if (userAnswers) {
+    userAnswers = JSON.parse(userAnswers);
 
-      closeBtn.addEventListener('click', closePopup);
+    // Access the individual answers based on the selected day
+    var gratefulInput1 = userAnswers['gratefulInput1'][day];
+    var gratefulInput2 = userAnswers['gratefulInput2'][day];
+    var gratefulInput3 = userAnswers['gratefulInput3'][day];
+    var greatInput1 = userAnswers['greatInput1'][day];
+    var greatInput2 = userAnswers['greatInput2'][day];
+    var affirmationInput = userAnswers['affirmationInput'][day];
 
-      popup.style.display = 'block';
-    }
+    // Build the content to display in the popup
+    var content = `
+      <p>Grateful Input 1: ${gratefulInput1}</p>
+      <p>Grateful Input 2: ${gratefulInput2}</p>
+      <p>Grateful Input 3: ${gratefulInput3}</p>
+      <p>Great Input 1: ${greatInput1}</p>
+      <p>Great Input 2: ${greatInput2}</p>
+      <p>Affirmation Input: ${affirmationInput}</p>
+    `;
+    popupContent.innerHTML = content;
+  } else {
+    popupContent.innerHTML = 'No data available for the selected day.';
+  }
+
+  closeBtn.addEventListener('click', closePopup);
+
+  popup.style.display = 'block';
+}
+
+
+
 
     function closePopup() {
       var popup = document.getElementById('popup');
